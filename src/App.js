@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
 import NavBar from './NavBar.js';
+import bg from './bg.jpg';
 
 
 class App extends Component {
@@ -25,7 +26,7 @@ class App extends Component {
       .then(data =>
         this.setState({
           weatherdata: data,
-          temp: data.main.temp,
+          temp: parseFloat(data.main.temp).toFixed(2),
           isLoading: false,
         })
       )
@@ -33,16 +34,18 @@ class App extends Component {
   }
 
   convertTemp(e){
-    e.preventDefault()
-    if(this.isCelsius){
-      this.temp = this.temp * (9/5) + 32
+    if((this.state.isCelsius && e.target.id =="F") || (!this.state.isCelsius && e.target.id =="C")){
+      if(e.target.id =="F"){
+        this.temp = (this.state.temp * (9/5) + 32).toFixed(2);
+      }
+      if(e.target.id =="C"){
+        this.temp = ((this.state.temp - 32) * (5/9)).toFixed(2);
+      }
+      this.setState(state => ({
+        isCelsius: !this.state.isCelsius,
+        temp: this.temp
+      }));
     }
-    else{
-      this.temp = (this.temp - 32) * (5/9)
-    }
-    this.setState(state => ({
-      isCelsius: !state.isCelsius
-    }));
   }
 
   render() {
@@ -54,17 +57,20 @@ class App extends Component {
     } else {
       return (
         <div className="App">
+
         <header class="masthead mb-auto">
           <NavBar />
         </header>
+
         <body class="text-center">
-          <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+          <img src={bg} alt="" />
+          <div id="top" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
             <div class="cityname">{weatherdata.name}</div>
             <div class="degrees" >{temp}°</div>
             <p class="lead">
               <nav class="nav nav-masthead justify-content-center">
-                <div class="nav-link"  onClick={this.convertTemp.bind(this)} >F </div>
-                <div class="nav-link active"  onClick={this.convertTemp.bind(this)}> C</div>
+                <div id="F" class={this.state.isCelsius ? "nav-link": "nav-link active"}  onClick={this.convertTemp} >F </div>
+                <div id="C" class={this.state.isCelsius ? "nav-link active": "nav-link"}  onClick={this.convertTemp}> C</div>
               </nav>
               <br/>
               O <br/>
@@ -86,6 +92,7 @@ class App extends Component {
             </ul>
           </div>
         </body>
+
         </div>
 
 
