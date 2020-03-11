@@ -9,9 +9,17 @@ class NavBar extends Component{
         <div class="collapse" id="collapseExample">
           <div class="container">
             <div class="row">
-              <div class="col-sm-8 col-md-7 py-4">
-                <h4 class="text-white">About</h4>
+              <div class="col-12 col-md-8 py-4">
+                <h4 class="text-white text-left">About</h4>
+                <p class="text-muted text-left">This app.</p>
               </div>
+              <div class="col-6 col-md-4 py-4">
+              <h4 class="text-white">Find a New City</h4>
+              <form class="form-inline mt-2 mt-md-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+              </form>
+            </div>
             </div>
           </div>
         </div>

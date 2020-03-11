@@ -6,23 +6,22 @@ body{
   color: #fff;
   text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .5);
   z-index: 2;
+  overflow: hidden;
 }
 a{
   text-decoration: none;
 }
 img{
+  position: sticky;
   height:100%;
   width:100%;
   z-index: 1;
   opacity: 0.3;
 }
 #top{
-  position: absolute;
+  position: relative;
   z-index: 2;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  top: 15%;
+  top: -65vw;
 }
 
 .pagination{
