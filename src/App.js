@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+
 
 import './App.css';
 import NavBar from './NavBar.js';
@@ -18,6 +20,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.convertTemp = this.convertTemp.bind(this);
+    this.changeDay = this.changeDay.bind(this);
   }
 
   componentDidMount() {
@@ -26,7 +29,7 @@ class App extends Component {
       .then(data =>
         this.setState({
           weatherdata: data,
-          temp: parseFloat(data.main.temp).toFixed(2),
+          temp: parseFloat(data.main.temp).toFixed(0),
           isLoading: false,
         })
       )
@@ -36,16 +39,22 @@ class App extends Component {
   convertTemp(e){
     if((this.state.isCelsius && e.target.id =="F") || (!this.state.isCelsius && e.target.id =="C")){
       if(e.target.id =="F"){
-        this.temp = (this.state.temp * (9/5) + 32).toFixed(2);
+        this.temp = (this.state.temp * (9/5) + 32).toFixed(0);
       }
       if(e.target.id =="C"){
-        this.temp = ((this.state.temp - 32) * (5/9)).toFixed(2);
+        this.temp = ((this.state.temp - 32) * (5/9)).toFixed(0);
       }
       this.setState(state => ({
         isCelsius: !this.state.isCelsius,
         temp: this.temp
       }));
     }
+  }
+
+  changeDay(e){
+    e.preventDefault();
+
+
   }
 
   render() {
@@ -82,13 +91,13 @@ class App extends Component {
               You should wear ... <br/>
             </p>
             <ul class="pagination justify-content-center">
-              <li class="page-item"><a class="page-link bg-dark text-white" href="#">M</a></li>
-              <li class="page-item"><a class="page-link bg-dark text-white" href="#">T</a></li>
-              <li class="page-item"><a class="page-link bg-dark text-white" href="#">W</a></li>
-              <li class="page-item"><a class="page-link bg-dark text-white" href="#">Th</a></li>
-              <li class="page-item"><a class="page-link bg-dark text-white" href="#">F</a></li>
-              <li class="page-item"><a class="page-link bg-dark text-white" href="#">Sa</a></li>
-              <li class="page-item"><a class="page-link bg-dark text-white" href="#">Su</a></li>
+              <li class="page-item disabled"><a class="page-link bg-light text-dark" onClick={this.changeDay}>W</a></li>
+              <li class="page-item"><a class="page-link bg-dark text-white" onClick={this.changeDay}>Th</a></li>
+              <li class="page-item"><a class="page-link bg-dark text-white" onClick={this.changeDay}>F</a></li>
+              <li class="page-item"><a class="page-link bg-dark text-white" onClick={this.changeDay}>Sa</a></li>
+              <li class="page-item"><a class="page-link bg-dark text-white" onClick={this.changeDay}>Su</a></li>
+              <li class="page-item"><a class="page-link bg-dark text-white" onClick={this.changeDay}>M</a></li>
+              <li class="page-item"><a class="page-link bg-dark text-white" onClick={this.changeDay}>T</a></li>
             </ul>
           </div>
         </body>

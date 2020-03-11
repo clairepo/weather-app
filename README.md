@@ -1,5 +1,12 @@
 ## ECS 522 Project, Weather App
 
+Dependencies:
+### `npm install --save bootstrap`
+### `npm install bootstrap jquery --save`
+### `npm install popper.js --save`
+### `npm install --save @fortawesome/react-fontawesome`
+### `npm install --save @fortawesome/fontawesome-svg-core`
+### `npm install --save @fortawesome/free-solid-svg-icons`
 
 In the project directory, you can run:
 
