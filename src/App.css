@@ -6,8 +6,13 @@ body{
   color: #fff;
   text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .5);
 }
-
-h1{
+a{
+  text-decoration: none;
+}
+.pagination{
+  text-decoration: none;
+}
+.cityname{
     font-size: 1.5rem;
 }
 
@@ -18,4 +23,17 @@ h1{
 .lead{
     font-size: 1.25rem;
     font-weight: 300;
+}
+.nav-masthead .nav-link {
+    font-weight: 700;
+    color: rgba(255, 255, 255, .5);
+    background-color: transparent;
+    border-bottom: .25rem solid transparent;
+}
+.nav-link:hover{
+  border-bottom-color: rgba(255, 255, 255, .5);
+}
+.nav-masthead .active {
+    color: #fff;
+    border-bottom-color: #fff;
 }
