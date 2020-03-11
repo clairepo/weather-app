@@ -1,3 +1,21 @@
 .App {
   text-align: center;
 }
+body{
+  background-color: #333;
+  color: #fff;
+  text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, .5);
+}
+
+h1{
+    font-size: 1.5rem;
+}
+
+.degrees{
+  font-size: 5rem;
+  font-weight: 500;
+}
+.lead{
+    font-size: 1.25rem;
+    font-weight: 300;
+}

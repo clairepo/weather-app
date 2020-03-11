@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './App.css';
+import NavBar from './NavBar.js';
+
 
 class App extends Component {
   state = {
@@ -27,11 +32,27 @@ class App extends Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <div>
-              <h1>{weatherdata.name}</h1>
-              Temperature: {weatherdata.main.temp} <br/>
-              Windspeed: {weatherdata.wind.speed}
+        <div className="App">
+        <header class="masthead mb-auto">
+          <NavBar />
+        </header>
+        <body class="text-center">
+          <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+            <h1>{weatherdata.name}</h1>
+            <p class="lead">
+            <div class = "degrees" >{weatherdata.main.temp}°</div><br/>
+            F C <br/>
+            images <br/>
+            Windspeed: {weatherdata.wind.speed} <br/>
+            You should wear ... <br/>
+            M T W Th F Sa Su
+            </p>
+          </div>
+        </body>
         </div>
+
+
       );
     }
   }
