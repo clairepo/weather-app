@@ -14,7 +14,8 @@ class App extends Component {
     isLoading: true,
     users: [],
     isCelsius: true,
-    error: null
+    error: null,
+    cityName: "London"
   };
 
   constructor(props){
@@ -24,7 +25,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&APPID=b0ea3a08c599d478b89e1c280d32dedc`)
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=`+ this.state.cityName +`&units=metric&APPID=b0ea3a08c599d478b89e1c280d32dedc`)
       .then(response => response.json())
       .then(data =>
         this.setState({
@@ -74,8 +75,8 @@ class App extends Component {
         <body class="text-center">
           <img src={bg} alt="" />
           <div id="top" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-            <div class="cityname">{weatherdata.name}</div>
-            <div class="degrees" >{temp}°</div>
+            <p class="cityname">{weatherdata.name}</p>
+            <div class="degrees">&nbsp;{temp}°</div>
             <p class="lead">
               <nav class="nav nav-masthead justify-content-center">
                 <div id="F" class={this.state.isCelsius ? "nav-link": "nav-link active"}  onClick={this.convertTemp} >F </div>

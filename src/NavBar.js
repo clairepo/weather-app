@@ -25,7 +25,7 @@ class NavBar extends Component{
         </div>
         <nav class="navbar navbar-dark">
           <div class="container d-flex justify-content-between">
-            <a href="#" class="navbar-brand d-flex align-items-center"> <FontAwesomeIcon icon={faCloudSunRain}/>  <strong>  Weather App</strong> </a>
+            <a href="#" class="navbar-brand d-flex align-items-center"> <FontAwesomeIcon icon={faCloudSunRain}/>  <strong> &nbsp;Weather App</strong> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
               <span class="navbar-toggler-icon"></span>
             </button>
