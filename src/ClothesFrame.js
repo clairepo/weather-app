@@ -100,18 +100,20 @@ class ClothesFrame extends Component{
         }
       }
 
-      if(result.length < 1)
-        return "anything!";
-      var resultStr = "";
-      for(var garment of result)
+      var resultStr = "anything!";
+      if(result.length > 0)
       {
-        resultStr += outfit[garment]["prefix"] + garment + ", "
+        resultStr = "";
+        for(var garment of result)
+        {
+          resultStr += outfit[garment]["prefix"] + garment + ", "
+        }
+        resultStr = resultStr.substr(0, resultStr.length - 2);
+        var lastComma = resultStr.lastIndexOf(',');
+        if (lastComma > 1)
+        resultStr = resultStr.substr(0, lastComma) + " and " + resultStr.substr(lastComma + 1);
+        resultStr += ".";
       }
-      resultStr = resultStr.substr(0, resultStr.length - 2);
-      var lastComma = resultStr.lastIndexOf(',');
-      if (lastComma > 1)
-      resultStr = resultStr.substr(0, lastComma) + " and " + resultStr.substr(lastComma + 1);
-      resultStr += ".";
 
       return {
           arr: result,

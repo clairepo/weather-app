@@ -3,6 +3,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCloudSunRain } from '@fortawesome/free-solid-svg-icons'
 
 class NavBar extends Component{
+
+  constructor(props){
+    super(props);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    var searchText = this.searchText;
+    console.log(searchText.value);
+    this.props.changeCity(searchText.value);
+  }
+
   render(){
     return(
       <div className="headerAndCollapse">
@@ -15,8 +28,8 @@ class NavBar extends Component{
               </div>
               <div class="col-6 col-md-4 py-4">
               <h4 class="text-white">Find a New City</h4>
-              <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+              <form class="form-inline mt-2 mt-md-0" onSubmit={this.onSubmit}>
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" ref={(c) => this.searchText = c}/>
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
               </form>
             </div>

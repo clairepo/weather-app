@@ -23,6 +23,7 @@ class App extends Component {
     super(props);
     this.convertTemp = this.convertTemp.bind(this);
     this.changeDay = this.changeDay.bind(this);
+    this.changeCity = this.changeCity.bind(this)
   }
 
   componentDidMount() {
@@ -59,6 +60,22 @@ class App extends Component {
 
   }
 
+  changeCity(city) {
+    this.setState({
+      cityName: city
+    });
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=`+ city +`&units=metric&APPID=b0ea3a08c599d478b89e1c280d32dedc`)
+      .then(response => response.json())
+      .then(data =>
+        this.setState({
+          weatherdata: data,
+          temp: parseFloat(data.main.temp).toFixed(0),
+          isLoading: false,
+        })
+      )
+      .catch(error => this.setState({ error, isLoading: false }));
+  }
+
   render() {
     const { isLoading, weatherdata, error, temp } = this.state;
     if (error) {
@@ -70,7 +87,7 @@ class App extends Component {
         <div className="App">
 
         <header class="masthead mb-auto">
-          <NavBar />
+          <NavBar changeCity={this.changeCity}/>
         </header>
 
         <body class="text-center">
