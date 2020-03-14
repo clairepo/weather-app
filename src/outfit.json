@@ -1,25 +1,38 @@
 {
     "sunglasses": {
         "_comment": "cloud cover is 0 to 20%, the sun is up and temperature is >22",
+        "prefix": "a pair of ",
         "cloudcover": "0:20",
         "sun": true,
         "temperature": "18+"
     },
+    "hat": {
+        "_comment": "below 5 degrees",
+        "prefix": "a ",
+        "temperature": "5-",
+        "img": "./img/hat.svg"
+    },
     "scarf": {
         "_comment": "below 5 degrees",
-        "temperature": "5-"
+        "prefix": "a ",
+        "temperature": "5-",
+        "img": "./img/scarf.svg"
     },
     "umbrella": {
         "_comment": "when it is raining",
+        "prefix": "an ",
         "raining": true
     },
     "raincoat": {
         "_comment": "raining. >=6 degrees to stop conflict with wintercoat",
+        "prefix": "a ",
         "raining": true,
         "temperature": "6+"
     },
     "wintercoat": {
         "_comment": "5 degrees or below",
-        "temperature": "5-"
+        "prefix": "a ",
+        "temperature": "5-",
+        "img": "./img/wintercoat.svg"
     }
 }

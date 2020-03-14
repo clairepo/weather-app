@@ -1,10 +1,31 @@
 import React, { Component } from 'react';
 
 class ClothesFrame extends Component{
+    state = {
+        outfit: require('./outfit.json'),
+        clothesimages: (function()
+        {
+            let outfit = require('./outfit.json');
+            let result = {};
+            for(var garment in outfit)
+            {
+                for(var prop in outfit[garment])
+                {
+                    if(prop == "img")
+                    {
+                        const imgName=outfit[garment][prop].split('/').slice(-1);
+                        result[garment] = require(`./img/${imgName}`);
+                        //result[garment] = require(outfit[garment][prop]);  //Cannot find module './img/hat.svg' What the hell is wrong with ReactJS....
+                    }
+                }
+            }
+            console.log(result);
+            return result;
+        })()
+    }
 
     constructor(props){
         super(props);
-
         this.getClothes = this.getClothes.bind(this);
         this.getClothesStr = this.getClothesStr.bind(this);
         this.isInBoundaries = this.isInBoundaries.bind(this);
@@ -33,13 +54,13 @@ class ClothesFrame extends Component{
     }
   
     getClothes(){
-      var outfit = require('./outfit.json');
+      var outfit = this.state.outfit;
       var result = []
       for(var garment in outfit)
-      { //console.log(garment);
+      {
         var flag = true;
         for(var constraint in outfit[garment])
-        { //console.log(constraint);
+        {
           if(constraint == "cloudcover")
           {
             if(!this.isInBoundaries(outfit[garment][constraint], this.props.weatherdata.clouds.all))
@@ -64,45 +85,72 @@ class ClothesFrame extends Component{
               break;
             }
           }
+          else if(constraint == "sun")
+          {
+            var ts = Math.round(Date.now() / 1000);
+            if(!(ts > this.props.weatherdata.sys.sunrise  && ts < this.props.weatherdata.sys.sunset))
+            {
+              flag = false;
+              break;
+            }
+          }
         }
         if(flag)
         {
-          result.push(garment);
+            result.push(garment);
         }
       }
-      return result; //console.log(outfit); //console.log(result);
-    }
-  
-    getClothesStr(){
-      var clothes = this.getClothes();
-      //console.log(arr);
-      if(clothes.length < 1)
+
+      if(result.length < 1)
         return "anything!";
-      var result = "";
-      for(var garment of clothes)
+      var resultStr = "";
+      for(var garment of result)
       {
-        result += garment + ", "
+        resultStr += outfit[garment]["prefix"] + garment + ", "
       }
-      result = result.substr(0, result.length - 2);
-      var lastComma = result.lastIndexOf(',');
+      resultStr = resultStr.substr(0, resultStr.length - 2);
+      var lastComma = resultStr.lastIndexOf(',');
       if (lastComma > 1)
-        result = result.substr(0, lastComma) + " and a " + result.substr(lastComma + 1);
-      result = " a " + result + ".";
-      return result;
+      resultStr = resultStr.substr(0, lastComma) + " and " + resultStr.substr(lastComma + 1);
+      resultStr += ".";
+
+      return {
+          arr: result,
+          str: resultStr
+      }; //console.log(outfit); //console.log(result);
+    }
+
+    getClothesStr(clothes){
+      
     }
 
   render(){
+    const clothes = this.getClothes();
+    const clothesStr = clothes.str;
+    var clothesimg = clothes.arr.map(function(str){
+        if(this.state.clothesimages[str] != null)
+        {
+            return (<div><img src={this.state.clothesimages[str]} style={{height: "5%", width: "5%"}}/></div>);
+        }
+        return null;
+    }, this);
     return(
-        <p>
-            O <br/>
-            | <br/>
-            \  /<br/>
-            |<br/>
-            /  \<br/><br/>
-            You should wear {this.getClothesStr()} <br/>
-        </p>
+        <div>
+            {clothesimg}
+            <p>You should wear {clothesStr}<br/></p>
+        </div>
     )
   }
 }
 
 export default ClothesFrame;
+
+/*
+<p>
+0<br/>
+|<br/>
+\  /<br/>
+|<br/>
+/  \<br/>
+</p>
+*/
