@@ -27,7 +27,6 @@ class ClothesFrame extends Component{
     constructor(props){
         super(props);
         this.getClothes = this.getClothes.bind(this);
-        this.getClothesStr = this.getClothesStr.bind(this);
         this.isInBoundaries = this.isInBoundaries.bind(this);
     }
 
@@ -118,10 +117,6 @@ class ClothesFrame extends Component{
           arr: result,
           str: resultStr
       }; //console.log(outfit); //console.log(result);
-    }
-
-    getClothesStr(clothes){
-      
     }
 
   render(){
