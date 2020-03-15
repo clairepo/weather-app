@@ -8,7 +8,8 @@
         "_comment": "below 5 degrees",
         "prefix": "a ",
         "temperature": "5-",
-        "img": "./img/hat.svg"
+        "img": "./img/hat.svg",
+        "width": "100px"
     },
     "sunglasses": {
         "_comment": "cloud cover is 0 to 20%, the sun is up and temperature is >22",
@@ -16,13 +17,15 @@
         "cloudcover": "0:20",
         "sun": true,
         "temperature": "18+",
-        "img": "./img/sunglasses.svg"
+        "img": "./img/sunglasses.svg",
+        "width": "100px"
     },
     "scarf": {
         "_comment": "below 5 degrees",
         "prefix": "a ",
         "temperature": "5-",
-        "img": "./img/scarf.svg"
+        "img": "./img/scarf.svg",
+        "width": "100px"
     },
     "raincoat": {
         "_comment": "raining. >=6 degrees to stop conflict with wintercoat",
@@ -34,6 +37,7 @@
         "_comment": "5 degrees or below",
         "prefix": "a ",
         "temperature": "5-",
-        "img": "./img/wintercoat.svg"
+        "img": "./img/wintercoat.svg",
+        "width": "150px"
     }
 }

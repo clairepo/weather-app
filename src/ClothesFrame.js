@@ -127,7 +127,7 @@ class ClothesFrame extends Component{
     var clothesimg = clothes.arr.map(function(str){
         if(this.state.clothesimages[str] != null)
         {
-            return (<div><img src={this.state.clothesimages[str]} style={{height: "5%", width: "5%"}}/></div>);
+            return (<div><img src={this.state.clothesimages[str]} style={{width: this.state.outfit[str]["width"]}}/></div>);
         }
         return null;
     }, this);
