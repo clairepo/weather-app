@@ -105,7 +105,8 @@ class App extends Component {
 
   changeCity(city) {
     this.setState({
-      cityName: city
+      cityName: city,
+      day: 0
     });
     this.updateWeather(city);
   }
@@ -132,7 +133,7 @@ class App extends Component {
         <body class="text-center">
           <img src={bg} alt="" />
           <div id="top" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-            <p class="cityname">{weatherdata.name}</p>
+            <p class="cityname">{this.state.cityName}</p>
             <div class="degrees">&nbsp;{temp}°</div>
             <div class="lead">
               <nav class="nav nav-masthead justify-content-center">
@@ -159,12 +160,16 @@ class App extends Component {
 
 export default App;
 /*
-              <li class={this.state.day == 0 ? "page-item disabled": "page-item"}><a id="day0" class={this.state.day == 0 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>W</a></li>
-              <li class={this.state.day == 1 ? "page-item disabled": "page-item"}><a id="day1" class={this.state.day == 1 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>Th</a></li>
-              <li class={this.state.day == 2 ? "page-item disabled": "page-item"}><a id="day2" class={this.state.day == 2 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>F</a></li>
-              <li class={this.state.day == 3 ? "page-item disabled": "page-item"}><a id="day3" class={this.state.day == 3 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>Sa</a></li>
-              <li class={this.state.day == 4 ? "page-item disabled": "page-item"}><a id="day4" class={this.state.day == 4 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>Su</a></li>
-              <li class={this.state.day == 5 ? "page-item disabled": "page-item"}><a id="day5" class={this.state.day == 5 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>M</a></li>
-              <li class={this.state.day == 6 ? "page-item disabled": "page-item"}><a id="day6" class={this.state.day == 6 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>T</a></li>
- 
+<p class="cityname">{weatherdata.name}</p>
+
+
+
+<li class={this.state.day == 0 ? "page-item disabled": "page-item"}><a id="day0" class={this.state.day == 0 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>W</a></li>
+<li class={this.state.day == 1 ? "page-item disabled": "page-item"}><a id="day1" class={this.state.day == 1 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>Th</a></li>
+<li class={this.state.day == 2 ? "page-item disabled": "page-item"}><a id="day2" class={this.state.day == 2 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>F</a></li>
+<li class={this.state.day == 3 ? "page-item disabled": "page-item"}><a id="day3" class={this.state.day == 3 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>Sa</a></li>
+<li class={this.state.day == 4 ? "page-item disabled": "page-item"}><a id="day4" class={this.state.day == 4 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>Su</a></li>
+<li class={this.state.day == 5 ? "page-item disabled": "page-item"}><a id="day5" class={this.state.day == 5 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>M</a></li>
+<li class={this.state.day == 6 ? "page-item disabled": "page-item"}><a id="day6" class={this.state.day == 6 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>T</a></li>
+
               */
