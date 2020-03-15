@@ -15,11 +15,11 @@ class ClothesFrame extends Component{
                     {
                         const imgName=outfit[garment][prop].split('/').slice(-1);
                         result[garment] = require(`./img/${imgName}`);
-                        //result[garment] = require(outfit[garment][prop]);  //Cannot find module './img/hat.svg' What the hell is wrong with ReactJS....
+                        //result[garment] = require(outfit[garment][prop]);  //"Cannot find module './img/hat.svg'" What the hell is wrong with ReactJS....
                     }
                 }
             }
-            console.log(result);
+            //console.log(result);
             return result;
         })()
     }
@@ -100,7 +100,7 @@ class ClothesFrame extends Component{
         }
       }
 
-      var resultStr = "anything!";
+      var resultStr = "whatever you want!";
       if(result.length > 0)
       {
         resultStr = "";

@@ -12,7 +12,7 @@ class NavBar extends Component{
   onSubmit(e) {
     e.preventDefault();
     var searchText = this.searchText;
-    console.log(searchText.value);
+    //console.log(searchText.value);
     this.props.changeCity(searchText.value);
   }
 

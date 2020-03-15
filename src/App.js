@@ -16,18 +16,28 @@ class App extends Component {
     users: [],
     isCelsius: true,
     error: null,
-    cityName: "London"
+    cityName: "London",
+    forecast: null,
+    day: 0
   };
 
   constructor(props){
     super(props);
+    this.updateWeather = this.updateWeather.bind(this);
     this.convertTemp = this.convertTemp.bind(this);
     this.changeDay = this.changeDay.bind(this);
-    this.changeCity = this.changeCity.bind(this)
+    this.changeCity = this.changeCity.bind(this);
   }
 
   componentDidMount() {
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=`+ this.state.cityName +`&units=metric&APPID=b0ea3a08c599d478b89e1c280d32dedc`)
+    this.updateWeather();
+  }
+
+  updateWeather(cityName = null)
+  {
+    if(cityName == null)
+      cityName = this.state.cityName;
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=`+ cityName +`&units=metric&APPID=b0ea3a08c599d478b89e1c280d32dedc`)
       .then(response => response.json())
       .then(data =>
         this.setState({
@@ -37,6 +47,14 @@ class App extends Component {
         })
       )
       .catch(error => this.setState({ error, isLoading: false }));
+    fetch(`http://api.openweathermap.org/data/2.5/forecast?q=`+ cityName +`&units=metric&APPID=b0ea3a08c599d478b89e1c280d32dedc`)
+      .then(response => response.json())
+      .then(data =>
+        this.setState({
+          forecast: data.list
+        })
+      )
+      .catch(error => this.setState({ error }));
   }
 
   convertTemp(e){
@@ -56,24 +74,40 @@ class App extends Component {
 
   changeDay(e){
     e.preventDefault();
+    var day = parseInt(e.target.id.substr(3), 10);
+    if(day == 0)
+    {
+      this.updateWeather();
+      this.setState({
+        day: day
+      })
+      return;
+    }
+    var dayforecasts = [];
+    console.log(this.state.forecast);
+    for(var forecast of this.state.forecast)
+    {
+      if(forecast.dt % 86400 == 43200)  //forecast is of mid-day of that day
+      {
+        dayforecasts.push(forecast);
+      }
+    }
+    if(dayforecasts.length < day || dayforecasts[day] == null) //we don't have the forecast for this day yet
+      return;
 
-
+    console.log(dayforecasts[day]);
+    this.setState({
+      day: day,
+      weatherdata: dayforecasts[day],
+      temp: parseFloat(dayforecasts[day].main.temp).toFixed(0),
+    })
   }
 
   changeCity(city) {
     this.setState({
       cityName: city
     });
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=`+ city +`&units=metric&APPID=b0ea3a08c599d478b89e1c280d32dedc`)
-      .then(response => response.json())
-      .then(data =>
-        this.setState({
-          weatherdata: data,
-          temp: parseFloat(data.main.temp).toFixed(0),
-          isLoading: false,
-        })
-      )
-      .catch(error => this.setState({ error, isLoading: false }));
+    this.updateWeather(city);
   }
 
   render() {
@@ -83,6 +117,11 @@ class App extends Component {
     } else if (isLoading) {
       return <div>Loading...</div>;
     } else {
+      var daynames = ["Su","M","T","W","T","F","Sa"];
+      var today = new Date().getDay(); //0 for sunday, 1 for monday...
+      var daylist = [0,1,2,3,4,5,6].map(function(day){
+        return (<li class={this.state.day == day ? "page-item disabled": "page-item"}><a id={"day" + day} class={this.state.day == day ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>{daynames[(day+today)%daynames.length]}</a></li>);
+      }, this); //console.log(daylist);
       return (
         <div className="App">
 
@@ -105,13 +144,7 @@ class App extends Component {
             <ClothesFrame weatherdata={this.state.weatherdata}/>
             <p>Windspeed: {weatherdata.wind.speed} meter/sec<br/></p>
             <ul class="pagination justify-content-center">
-              <li class="page-item disabled"><a class="page-link bg-light text-dark" onClick={this.changeDay}>W</a></li>
-              <li class="page-item"><a class="page-link bg-dark text-white" onClick={this.changeDay}>Th</a></li>
-              <li class="page-item"><a class="page-link bg-dark text-white" onClick={this.changeDay}>F</a></li>
-              <li class="page-item"><a class="page-link bg-dark text-white" onClick={this.changeDay}>Sa</a></li>
-              <li class="page-item"><a class="page-link bg-dark text-white" onClick={this.changeDay}>Su</a></li>
-              <li class="page-item"><a class="page-link bg-dark text-white" onClick={this.changeDay}>M</a></li>
-              <li class="page-item"><a class="page-link bg-dark text-white" onClick={this.changeDay}>T</a></li>
+              {daylist}
             </ul>
           </div>
         </body>
@@ -125,3 +158,13 @@ class App extends Component {
 }
 
 export default App;
+/*
+              <li class={this.state.day == 0 ? "page-item disabled": "page-item"}><a id="day0" class={this.state.day == 0 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>W</a></li>
+              <li class={this.state.day == 1 ? "page-item disabled": "page-item"}><a id="day1" class={this.state.day == 1 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>Th</a></li>
+              <li class={this.state.day == 2 ? "page-item disabled": "page-item"}><a id="day2" class={this.state.day == 2 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>F</a></li>
+              <li class={this.state.day == 3 ? "page-item disabled": "page-item"}><a id="day3" class={this.state.day == 3 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>Sa</a></li>
+              <li class={this.state.day == 4 ? "page-item disabled": "page-item"}><a id="day4" class={this.state.day == 4 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>Su</a></li>
+              <li class={this.state.day == 5 ? "page-item disabled": "page-item"}><a id="day5" class={this.state.day == 5 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>M</a></li>
+              <li class={this.state.day == 6 ? "page-item disabled": "page-item"}><a id="day6" class={this.state.day == 6 ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>T</a></li>
+ 
+              */
