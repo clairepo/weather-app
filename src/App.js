@@ -84,22 +84,19 @@ class App extends Component {
       return;
     }
     var dayforecasts = [];
-    console.log(this.state.forecast);
     for(var forecast of this.state.forecast)
     {
-      if(forecast.dt % 86400 == 43200)  //forecast is of mid-day of that day
-      {
-        dayforecasts.push(forecast);
-      }
+      dayforecasts.push(forecast);
+      
     }
     if(dayforecasts.length < day || dayforecasts[day] == null) //we don't have the forecast for this day yet
       return;
 
-    console.log(dayforecasts[day]);
     this.setState({
       day: day,
       weatherdata: dayforecasts[day],
       temp: parseFloat(dayforecasts[day].main.temp).toFixed(0),
+      isCelsius: true
     })
   }
 
@@ -122,7 +119,7 @@ class App extends Component {
       var today = new Date().getDay(); //0 for sunday, 1 for monday...
       var daylist = [0,1,2,3,4,5,6].map(function(day){
         return (<li class={this.state.day == day ? "page-item disabled": "page-item"}><a id={"day" + day} class={this.state.day == day ? "page-link bg-light text-dark": "page-link bg-dark text-white"} onClick={this.changeDay}>{daynames[(day+today)%daynames.length]}</a></li>);
-      }, this); //console.log(daylist);
+      }, this);
       return (
         <div className="App">
 
