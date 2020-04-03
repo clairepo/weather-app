@@ -24,7 +24,7 @@ class NavBar extends Component{
             <div class="row">
               <div class="col-12 col-md-8 py-4">
                 <h4 class="text-white text-left">About</h4>
-                <p class="text-muted text-left">This app.</p>
+                <p class="text-muted text-left">This is a weather app created for ECS522U. Hope you enjoy!</p>
               </div>
               <div class="col-6 col-md-4 py-4">
               <h4 class="text-white">Find a New City</h4>
