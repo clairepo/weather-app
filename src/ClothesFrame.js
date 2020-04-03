@@ -30,22 +30,30 @@ class ClothesFrame extends Component{
       var result = []
 
       var resultStr = "";
+      var buyStr = "";
 
+      
       if(this.props.weatherdata.weather[0].main.includes("Clear")) {
         resultStr += "sunglasses, ";
+        buyStr += "You can purchase sunglasses from Ray-Ban or Sunglass Hut. ";
       }
       if(this.props.weatherdata.weather[0].main.includes("Rain")) {
         resultStr += "an umbrella, ";
+        buyStr += "You can purchase umbrellas from Target or Walmart. ";
       }
       if(this.props.weatherdata.main.temp <= 0) {
         resultStr += "a winter coat and scarf, ";
+        buyStr += "You can purchase winterwear from The North Face or Patagonia. ";
       }
       else if(this.props.weatherdata.main.temp <= 20) {
         resultStr += "a light coat, ";
+        buyStr += "You can purchase jackets from Macy's or Nordstrom's. ";
       }
       else {
         resultStr += "a t-shirt and shorts, ";
+        buyStr += "You can purchase summerwear from Primark or Marks & Spencers. ";
       }
+
       resultStr = resultStr.substr(0, resultStr.length - 2);
       var lastComma = resultStr.lastIndexOf(',');
       if (lastComma > 1)
@@ -54,17 +62,23 @@ class ClothesFrame extends Component{
 
       return {
           arr: result,
-          str: resultStr
+          str: resultStr,
+          buyStr: buyStr,
+          link: this.props.weatherdata.weather[0].icon
       };
     }
 
   render(){
     const clothes = this.getClothes();
     const clothesStr = clothes.str;
+    const buyStr = clothes.buyStr;
+    const link ='http://openweathermap.org/img/wn/' + clothes.link.substr(0,2) + 'd@2x.png';
+    console.log(link);
     return(
         <div>
-
+            <img src={link} style={{width: 100}}/>
             <p>You should wear {clothesStr}<br/></p>
+            <p>{buyStr}</p>
         </div>
     )
   }
