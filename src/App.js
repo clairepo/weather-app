@@ -128,7 +128,7 @@ class App extends Component {
         </header>
 
         <body class="text-center">
-          <img src={bg} style={{opacity: 0.3}} alt="" />
+          <img src={bg} style={{opacity: 0.7}} alt="" />
           <div id="top" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
             <p class="cityname">{this.state.cityName}</p>
             <div class="degrees">&nbsp;{temp}°</div>
