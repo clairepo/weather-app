@@ -1,10 +1,11 @@
 ## ECS 522 Project, Weather App
 
+This application requires Node.js 12.16.1 or later to run.
+
 Dependencies:
+### `npm install`
 ### `npm install popper.js --save`
 ### `npm install bootstrap jquery --save`
-### `npm install --save bootstrap`
-### `npm install react react-dom --save`
 ### `npm install --save @fortawesome/fontawesome-svg-core`
 ### `npm install --save @fortawesome/react-fontawesome`
 ### `npm install --save @fortawesome/free-solid-svg-icons`
