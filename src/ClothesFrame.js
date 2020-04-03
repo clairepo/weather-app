@@ -24,11 +24,6 @@ class ClothesFrame extends Component{
         })()
     }
 
-    constructor(props){
-        super(props);
-        this.getClothes = this.getClothes.bind(this);
-        this.isInBoundaries = this.isInBoundaries.bind(this);
-    }
   
     getClothes(){
       var outfit = this.state.outfit;
